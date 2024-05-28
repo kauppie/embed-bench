@@ -27,7 +27,7 @@ func main() {
 		panic("float function isn't exported")
 	}
 
-	result, err := fibFunc.Call(store, 35)
+	result, err := fibFunc.Call(store, 38)
 	check(err)
 
 	fmt.Println("result:", result.(int64))

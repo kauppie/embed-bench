@@ -15,7 +15,7 @@ func main() {
 	}
 
 	l.Global("fib")
-	l.PushInteger(35)
+	l.PushInteger(38)
 	l.Call(1, 1)
 	result, ok := l.ToInteger(-1)
 	if !ok {
