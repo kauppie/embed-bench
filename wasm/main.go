@@ -2,12 +2,14 @@ package main
 
 import (
 	"fmt"
+	"os"
+	"time"
 
 	"github.com/bytecodealliance/wasmtime-go/v21"
 )
 
 func main() {
-	filePath := "component/component.wasm"
+	filePath := os.Args[1]
 
 	engine := wasmtime.NewEngine()
 	store := wasmtime.NewStore(engine)
@@ -27,10 +29,15 @@ func main() {
 		panic("float function isn't exported")
 	}
 
+	now := time.Now()
+
 	result, err := fibFunc.Call(store, 38)
 	check(err)
 
+	elapsed := time.Since(now)
+
 	fmt.Println("result:", result.(int64))
+	fmt.Println("time took:", elapsed)
 }
 
 func check(err error) {
