@@ -1,0 +1,9 @@
+package fib:demo;
+
+interface fibonacci {
+    fib: func(f: s64) -> s64;
+}
+
+world fibdemo {
+    export fibonacci;
+}
