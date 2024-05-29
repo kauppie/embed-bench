@@ -26,7 +26,7 @@ func main() {
 
 	fibFunc := instance.GetFunc(store, "fib:demo/fibonacci#fib")
 	if fibFunc == nil {
-		panic("float function isn't exported")
+		panic("fibonacci function isn't exported")
 	}
 
 	now := time.Now()
