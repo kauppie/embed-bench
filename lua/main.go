@@ -34,5 +34,5 @@ func main() {
 	}
 
 	fmt.Printf("result: %d\n", result)
-	fmt.Println("time took:", elapsed)
+	fmt.Println("time:", elapsed)
 }

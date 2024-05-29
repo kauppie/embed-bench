@@ -37,7 +37,7 @@ func main() {
 	elapsed := time.Since(now)
 
 	fmt.Println("result:", result.(int64))
-	fmt.Println("time took:", elapsed)
+	fmt.Println("time:", elapsed)
 }
 
 func check(err error) {
