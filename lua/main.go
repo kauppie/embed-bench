@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/Shopify/go-lua"
+	lua "github.com/yuin/gopher-lua"
 )
 
 //go:embed fib.lua
@@ -13,26 +13,26 @@ var fibFile string
 
 func main() {
 	l := lua.NewState()
-	lua.OpenLibraries(l)
-
-	if err := lua.DoString(l, fibFile); err != nil {
+	defer l.Close()
+	if err := l.DoString(fibFile); err != nil {
 		panic(err)
 	}
 
-	l.Global("fib")
-	l.PushInteger(38)
-
 	now := time.Now()
 
-	l.Call(1, 1)
+	if err := l.CallByParam(lua.P{
+		Fn:      l.GetGlobal("fib"),
+		NRet:    1,
+		Protect: true,
+	}, lua.LNumber(38)); err != nil {
+		panic(err)
+	}
 
 	elapsed := time.Since(now)
 
-	result, ok := l.ToInteger(-1)
-	if !ok {
-		panic("failed to get return value")
-	}
+	luaResult := l.Get(-1)
+	result := int64(lua.LVAsNumber(luaResult))
 
-	fmt.Printf("result: %d\n", result)
+	fmt.Printf("result: %v\n", result)
 	fmt.Println("time:", elapsed)
 }
